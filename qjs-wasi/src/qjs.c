@@ -258,24 +258,24 @@ static const JSMallocFunctions trace_mf = {
 
 void help(void)
 {
-    printf("QuickJS version " CONFIG_VERSION "\n"
-           "usage: " PROG_NAME " [options] [file]\n"
-           "-h  --help         list options\n"
-           "-e  --eval EXPR    evaluate EXPR\n"
-           "-i  --interactive  go to interactive mode\n"
-           "-m  --module       load as ES6 module (default=autodetect)\n"
-           "    --script       load as ES6 script (default=autodetect)\n"
-           "    --std          make 'std' and 'os' available to the loaded script\n"
-#ifdef CONFIG_BIGNUM
-           "    --qjscalc      load the QJSCalc runtime (default if invoked as qjscalc)\n"
-#endif
-           "-T  --trace        trace memory allocation\n"
-           "-d  --dump         dump the memory usage stats\n"
-           "-q  --quit         just instantiate the interpreter and quit\n");
+//     printf("QuickJS version " CONFIG_VERSION "\n"
+//            "usage: " PROG_NAME " [options] [file]\n"
+//            "-h  --help         list options\n"
+//            "-e  --eval EXPR    evaluate EXPR\n"
+//            "-i  --interactive  go to interactive mode\n"
+//            "-m  --module       load as ES6 module (default=autodetect)\n"
+//            "    --script       load as ES6 script (default=autodetect)\n"
+//            "    --std          make 'std' and 'os' available to the loaded script\n"
+// #ifdef CONFIG_BIGNUM
+//            "    --qjscalc      load the QJSCalc runtime (default if invoked as qjscalc)\n"
+// #endif
+//            "-T  --trace        trace memory allocation\n"
+//            "-d  --dump         dump the memory usage stats\n"
+//            "-q  --quit         just instantiate the interpreter and quit\n");
     exit(1);
 }
 
-int main(int argc, char **argv)
+int main1(int argc, char **argv)
 {
     JSRuntime *rt;
     JSContext *ctx;
@@ -457,15 +457,15 @@ int main(int argc, char **argv)
         double best[5];
         int i, j;
         for (i = 0; i < 100; i++) {
-            t[0] = clock();
+            // t[0] = clock();
             rt = JS_NewRuntime();
-            t[1] = clock();
+            // t[1] = clock();
             ctx = JS_NewContext(rt);
-            t[2] = clock();
+            // t[2] = clock();
             JS_FreeContext(ctx);
-            t[3] = clock();
+            // t[3] = clock();
             JS_FreeRuntime(rt);
-            t[4] = clock();
+            // t[4] = clock();
             for (j = 4; j > 0; j--) {
                 double ms = 1000.0 * (t[j] - t[j - 1]) / CLOCKS_PER_SEC;
                 if (i == 0 || best[j] > ms)
